@@ -2,8 +2,9 @@ import javax.swing.*;
 import java.awt.*;
 
 public class PaneL extends JPanel {
+    mouseListener mouseListener = new mouseListener();
     public void panel1(JPanel p1){
-        p1.setLayout(new FlowLayout());
+        p1.setLayout(new GridLayout());
         p1.setBounds(2,2,600,40);
         p1.setBackground(new Color(0x7C8882));
 
@@ -45,6 +46,7 @@ public class PaneL extends JPanel {
                 button[i][j] = new Button();
                 add(button[i][j]);
                 setBackground(new Color(176, 211, 232));
+               // addMouseListener(mouseListener);
 
 
             }
