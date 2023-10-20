@@ -1,13 +1,20 @@
 import javax.swing.*;
 import java.awt.*;
+import java.util.ArrayList;
+import java.util.Random;
 
 public class PaneL extends JPanel {
-    mouseListener mouseListener = new mouseListener();
+
+   // mouseListener mouseListener = new mouseListener();
+   ArrayList<Button> mines=new ArrayList<>();
+
+   ImageIcon imageIcon= new ImageIcon("images.png");
+
+
     public void panel1(JPanel p1){
         p1.setLayout(new GridLayout());
         p1.setBounds(2,2,600,40);
         p1.setBackground(new Color(0x7C8882));
-
         JMenuBar bar =new JMenuBar();
 
         JMenu Game =new JMenu("Game");
@@ -28,8 +35,6 @@ public class PaneL extends JPanel {
         p1.add(bar);
 
 
-
-
     }
 
     public void panel2(JPanel p2){
@@ -39,17 +44,35 @@ public class PaneL extends JPanel {
     }
     Button button[][]= new Button[20][20];
 
+
     public void panel3() {
         setLayout(new GridLayout(12,12));
         for(int i =0 ; i<12 ; i++){
             for(int j=0;j<12;j++) {
+               // Button button1 = new Button();
                 button[i][j] = new Button();
+               // button1 = button[i][j] ;
                 add(button[i][j]);
                 setBackground(new Color(176, 211, 232));
-               // addMouseListener(mouseListener);
+
+
 
 
             }
+        }
+    }
+    Random random = new Random();
+    public void setMines(){
+        for (int i=0 ;i<15;i++){
+            int x= random.nextInt(10);
+            int y=random.nextInt(10);
+            mines.add(button[x][y]);
+            button[x][y].setIcon(imageIcon);
+            button[x][y].setBackground(Color.red);
+            button[x][y].setText("💣");
+
+
+
         }
     }
 }
