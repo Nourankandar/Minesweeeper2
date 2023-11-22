@@ -74,7 +74,7 @@ public class PaneL extends JPanel implements ActionListener {
         for (int i=0 ;i<12;i++){
             for (int j=0 ;j<12;j++){
                 if (e.getSource()== button[i][j]){
-                    if(button[i][j].getText()== " "){
+                    if(button[i][j].getToolTipText()== "Bomb"){
                         mineslose();
                     }
                 }
@@ -92,10 +92,8 @@ public class PaneL extends JPanel implements ActionListener {
             int y=random.nextInt(11);
             mines.add(button[x][y]);
             button[x][y].setIcon(imageIcon);
-            button[x][y].setText(" ");
-
-
-
+            button[x][y].setText("💣");
+            button[x][y].setToolTipText("Bomb");
         }
     }
     public void mineslose(){
