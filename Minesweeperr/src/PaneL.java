@@ -92,7 +92,7 @@ public class PaneL extends JPanel implements ActionListener {
             int y=random.nextInt(11);
             mines.add(button[x][y]);
             button[x][y].setIcon(imageIcon);
-            button[x][y].setText("💣");
+//            button[x][y].setText("💣");
             button[x][y].setToolTipText("Bomb");
         }
     }
