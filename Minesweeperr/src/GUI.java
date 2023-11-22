@@ -23,6 +23,7 @@ public class GUI extends JFrame {
 
         add(paneL1);add(paneL2); add(paneL);
         paneL.setMines();
+        paneL.setNums();
 
         setVisible(true);
     }
