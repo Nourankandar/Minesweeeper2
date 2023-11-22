@@ -3,7 +3,7 @@ import java.util.ArrayList;
 import java.util.Random;
 
 public class GUI extends JFrame {
-    PaneL paneL = new PaneL();
+    PaneL paneL = new PaneL(5);
     PaneL paneL1 = new PaneL();
     PaneL paneL2 = new PaneL();
 
