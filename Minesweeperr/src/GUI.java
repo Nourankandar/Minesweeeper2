@@ -1,6 +1,4 @@
 import javax.swing.*;
-import java.util.ArrayList;
-import java.util.Random;
 
 public class GUI extends JFrame {
     PaneL paneL = new PaneL(5);
@@ -23,7 +21,7 @@ public class GUI extends JFrame {
 
         add(paneL1);add(paneL2); add(paneL);
         paneL.setMines();
-        paneL.setNums();
+        paneL.setNum();
 
         setVisible(true);
     }

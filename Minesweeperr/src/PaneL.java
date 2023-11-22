@@ -12,7 +12,7 @@ public class PaneL extends JPanel implements ActionListener {
    ArrayList<Button> mines=new ArrayList<>();
    HashMap <Button,Integer> numbers = new HashMap<>();
 
-   ImageIcon imageIcon= new ImageIcon("images.png");
+//   ImageIcon imageIcon= new ImageIcon("images.png");
     Button[][] button = new Button[12][12];
     public PaneL() {}
     public PaneL(int in) {
@@ -24,7 +24,7 @@ public class PaneL extends JPanel implements ActionListener {
                 button[i][j] = new Button();
                 // button1 = button[i][j] ;
                 add(button[i][j]);
-                setBackground(new Color(176, 211, 232));
+                setBackground(new Color(in+176, 211, 232));
 
             }
         }
@@ -77,7 +77,7 @@ public class PaneL extends JPanel implements ActionListener {
             for (int j=0 ;j<12;j++){
                 if (e.getSource()== button[i][j]){
                     if(mines.contains(button[i][j])){
-                        mineslose();
+                        minesLose();
                     }
                     else if (numbers.containsKey(button[i][j])){
                         button[i][j].setEnabled(false);
@@ -106,14 +106,14 @@ public class PaneL extends JPanel implements ActionListener {
 
         }
     }
-    public void mineslose(){
+    public void minesLose(){
         for (Button b :mines){
             b.setText("💣");
             b.setBackground(new Color(0x01B692));
         }
     }
 
-    public void setNums(){
+    public void setNum(){
         int count=0;
         for (int i=0 ;i<12;i++){
             for (int j=0 ;j<12;j++){
