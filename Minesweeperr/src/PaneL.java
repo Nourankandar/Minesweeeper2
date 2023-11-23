@@ -8,13 +8,12 @@ import java.util.Random;
 
 public class PaneL extends JPanel implements ActionListener {
 
-   // mouseListener mouseListener = new mouseListener();
    ArrayList<Button> mines=new ArrayList<>();
    HashMap <Button,Integer> numbers = new HashMap<>();
 
-//   ImageIcon imageIcon= new ImageIcon("images.png");
     Button[][] button = new Button[12][12];
     public PaneL() {}
+    public void panel3() {}
     public PaneL(int in) {
 
         setLayout(new GridLayout(12,12));
@@ -84,6 +83,10 @@ public class PaneL extends JPanel implements ActionListener {
                         int n=numbers.get(button[i][j]);
                         String s=Integer.toString(n);
                         button[i][j].setText(s);
+                        button[i][j].setBackground(new Color(0xA1F3F3));
+                    }else{
+
+                        floodFill(i,j);
                     }
 
                 }
@@ -91,25 +94,21 @@ public class PaneL extends JPanel implements ActionListener {
             }
         }
     }
-    public void panel3() {
 
-    }
     Random random = new Random();
     public void setMines(){
         for (int i=0 ;i<20;i++){
             int x= random.nextInt(12);
             int y=random.nextInt(12);
             mines.add(button[x][y]);
-//            button[x][y].setIcon(imageIcon);
-            button[x][y].setText("💣");
-            button[x][y].setBackground(new Color(0x01B692));
+
 
         }
     }
     public void minesLose(){
         for (Button b :mines){
             b.setText("💣");
-            b.setBackground(new Color(0x01B692));
+            b.setBackground(new Color(0xFFFF0000, true));
         }
     }
 
@@ -140,6 +139,32 @@ public class PaneL extends JPanel implements ActionListener {
             }
     }
 
+    public void floodFill(int i ,int j){
+        if(checkNumber(i,j)){
+            button[i][j].setEnabled(false);
+//            int n=numbers.get(button[i][j]);
+//            String s=Integer.toString(n);
+//            button[i][j].setText(s);
+            button[i][j].setBackground(new Color(0xA1F3F3));
+        }else{
+            if (i< 0 ) {
+                floodFill(i+1, j-1);    //left
+                button[i+1][j].setBackground(new Color(0xA1F3F3));
+                return;
+            }
+            button[i][j].setBackground(new Color(0xA1F3F3));
+//            floodFill(i-1, j-1);  //top left
+            floodFill(i-1, j);    //top
+//            floodFill(i-1, j+1);  //top right
+//            floodFill(i, j-1);    //left
+//            floodFill(i, j+1);    //right
+//            floodFill(i+1, j-1);  //bottom left
+//            floodFill(i+1, j);    //bottom
+//            floodFill(i+1, j+1);  //bottom right
+        }
+    }
+
+
     public int checkMines(int i,int j){
         if (i < 0 || i >= 11 || j < 0 || j >= 11) {
             return 0;
@@ -148,6 +173,15 @@ public class PaneL extends JPanel implements ActionListener {
             return 1;
         }
         return 0;
+    }
+    public boolean checkNumber(int i,int j){
+        if (i < 0 || i >= 11 || j < 0 || j >= 11) {
+            return false;
+        }
+        if (numbers.containsKey(button[i][j])) {
+            return true;
+        }
+        return false;
     }
 
     }
