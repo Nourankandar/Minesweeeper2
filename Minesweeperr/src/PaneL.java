@@ -8,28 +8,18 @@ import java.util.Random;
 
 public class PaneL extends JPanel implements ActionListener {
 
-   // mouseListener mouseListener = new mouseListener();
    ArrayList<Button> mines=new ArrayList<>();
    HashMap <Button,Integer> numbers = new HashMap<>();
 
-//   ImageIcon imageIcon= new ImageIcon("images.png");
     Button[][] button = new Button[12][12];
     public PaneL() {}
     public PaneL(int in) {
 
-        setLayout(new GridLayout(12,12));
+        setLayout(new GridLayout(12,12)) ;
         for(int i =0 ; i<12 ; i++){
             for(int j=0;j<12;j++) {
-                // Button button1 = new Button();
                 button[i][j] = new Button();
-                // button1 = button[i][j] ;
                 add(button[i][j]);
-                setBackground(new Color(in+176, 211, 232));
-
-            }
-        }
-        for (int i=0 ;i<12;i++){
-            for (int j=0 ;j<12;j++){
                 button[i][j].addActionListener(this);
 
             }
@@ -38,12 +28,18 @@ public class PaneL extends JPanel implements ActionListener {
     }
 
     public void panel1(JPanel p1){
-        p1.setLayout(new GridLayout());
-        p1.setBounds(2,2,600,40);
-        p1.setBackground(new Color(0x7C8882));
+        p1.setLayout(new FlowLayout(FlowLayout.LEFT));
+        p1.setBounds(2,2,600,25);
+        p1.setBackground(new Color(0xFF689C));
+
         JMenuBar bar =new JMenuBar();
+        bar.setOpaque(true);
+        bar.setBackground(new Color(0xFF689C));
 
         JMenu Game =new JMenu("Game");
+        Game.setOpaque(true);
+        Game.setBackground(new Color(0xFF689C));
+
         JMenuItem New =new JMenuItem("new");
         JMenuItem Save =new JMenuItem("save");
         JMenuItem Load =new JMenuItem("load");
@@ -51,6 +47,9 @@ public class PaneL extends JPanel implements ActionListener {
         Game.add(New);Game.add(Save);Game.add(Load);
 
         JMenu Settings =new JMenu("Settings");
+        Settings.setOpaque(true);
+        Settings.setBackground(new Color(0xFF689C));
+
         JMenuItem Time =new JMenuItem("time");
         JMenuItem Player =new JMenuItem("player mode");
 
@@ -65,7 +64,7 @@ public class PaneL extends JPanel implements ActionListener {
 
     public void panel2(JPanel p2){
         p2.setLayout(null);
-        p2.setBounds(2,44,600,55);
+        p2.setBounds(2,29,600,69);
         p2.setBackground(new Color(0xB27EFF));
     }
 
@@ -75,15 +74,14 @@ public class PaneL extends JPanel implements ActionListener {
 
         for (int i=0 ;i<12;i++){
             for (int j=0 ;j<12;j++){
-                if (e.getSource()== button[i][j]){
+                if ( e.getSource() == button[i][j]){
+                    button[i][j].setEnabled(false);
+                    button[i][j].setBackground(Color.lightGray);
                     if(mines.contains(button[i][j])){
                         minesLose();
                     }
                     else if (numbers.containsKey(button[i][j])){
-                        button[i][j].setEnabled(false);
-                        int n=numbers.get(button[i][j]);
-                        String s=Integer.toString(n);
-                        button[i][j].setText(s);
+                        numFill(i,j);
                     }
 
                 }
@@ -91,25 +89,40 @@ public class PaneL extends JPanel implements ActionListener {
             }
         }
     }
-    public void panel3() {
 
+    public void numFill(int i, int j){
+//        button[i][j].setEnabled(false);
+        int n=numbers.get(button[i][j]);
+        String s=Integer.toString(n);
+        button[i][j].setText(s);
+//        button[i][j].setBackground(Color.lightGray);
     }
+
     Random random = new Random();
     public void setMines(){
         for (int i=0 ;i<20;i++){
             int x= random.nextInt(12);
             int y=random.nextInt(12);
             mines.add(button[x][y]);
-//            button[x][y].setIcon(imageIcon);
-            button[x][y].setText("💣");
-            button[x][y].setBackground(new Color(0x01B692));
+
 
         }
     }
     public void minesLose(){
+
+        for (int i=0 ;i<12;i++){
+            for (int j=0 ;j<12;j++){
+                button[i][j].setEnabled(false);
+                if (numbers.containsKey(button[i][j])){
+                    numFill(i,j);
+                }
+            }
+        }
+
         for (Button b :mines){
             b.setText("💣");
-            b.setBackground(new Color(0x01B692));
+            b.setBackground(new Color(0xCB1515));
+            b.setEnabled(true);
         }
     }
 
@@ -137,11 +150,11 @@ public class PaneL extends JPanel implements ActionListener {
                 }
                 count=0;
             }
-            }
+        }
     }
 
     public int checkMines(int i,int j){
-        if (i < 0 || i >= 11 || j < 0 || j >= 11) {
+        if (i < 0 || i > 11 || j < 0 || j > 11) {
             return 0;
         }
         if (mines.contains(button[i][j])) {
