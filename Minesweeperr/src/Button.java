@@ -9,7 +9,7 @@ public class Button extends JButton {
     Button button;
 
     public Button() {
-        this.setBackground(new Color(65, 182, 232));
+//        this.setBackground(new Color(65, 182, 232));
         this.setText(" ");
 
     }

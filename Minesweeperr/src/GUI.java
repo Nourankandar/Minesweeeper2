@@ -1,9 +1,10 @@
 import javax.swing.*;
 
 public class GUI extends JFrame {
-    PaneL paneL = new PaneL(5);
+
     PaneL paneL1 = new PaneL();
     PaneL paneL2 = new PaneL();
+    PaneL paneL3 = new PaneL(5);
 
 
     public GUI(){
@@ -13,15 +14,14 @@ public class GUI extends JFrame {
         setTitle("MineSweeper");
         setLocation(500, 100);
         setLayout(null);
-        paneL.setBounds(2,100,600,480);
+        paneL3.setBounds(2,100,600,480);
 
-        paneL.panel3();
         paneL1.panel1(paneL1);
         paneL2.panel2(paneL2);
 
-        add(paneL1);add(paneL2); add(paneL);
-        paneL.setMines();
-        paneL.setNum();
+        add(paneL1);add(paneL2); add(paneL3);
+        paneL3.setMines();
+        paneL3.setNum();
 
         setVisible(true);
     }
