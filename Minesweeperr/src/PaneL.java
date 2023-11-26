@@ -83,12 +83,31 @@ public class PaneL extends JPanel implements ActionListener {
                     else if (numbers.containsKey(button[i][j])){
                         numFill(i,j);
                     }else{
+                        button[i][j].setEnabled(true);
+                        floodFill(i,j);
 
                     }
 
                 }
 
             }
+        }
+    }
+
+    private void floodFill(int i, int j) {
+        if(i < 0 || i > 11 || j < 0 || j >11 || !( button[i][j].isEnabled())  ){
+            return;
+        }else if(numbers.containsKey(button[i][j])){
+            numFill(i,j);
+        }else{
+
+            button[i][j].setEnabled(false);
+            button[i][j].setBackground(Color.lightGray);
+            floodFill(i+1,j);
+            floodFill(i-1,j);
+            floodFill(i,j+1);
+            floodFill(i,j-1);
+
         }
     }
 
@@ -101,7 +120,7 @@ public class PaneL extends JPanel implements ActionListener {
 
     Random random = new Random();
     public void setMines(){
-        for (int i=0 ;i<20;i++){
+        for (int i=0 ; i<20 ; i++){
             int x= random.nextInt(12);
             int y=random.nextInt(12);
             mines.add(button[x][y]);
