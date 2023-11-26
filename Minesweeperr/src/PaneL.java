@@ -82,6 +82,8 @@ public class PaneL extends JPanel implements ActionListener {
                     }
                     else if (numbers.containsKey(button[i][j])){
                         numFill(i,j);
+                    }else{
+
                     }
 
                 }
@@ -91,11 +93,10 @@ public class PaneL extends JPanel implements ActionListener {
     }
 
     public void numFill(int i, int j){
-//        button[i][j].setEnabled(false);
         int n=numbers.get(button[i][j]);
         String s=Integer.toString(n);
         button[i][j].setText(s);
-//        button[i][j].setBackground(Color.lightGray);
+        button[i][j].setBackground(Color.lightGray);
     }
 
     Random random = new Random();
@@ -113,6 +114,7 @@ public class PaneL extends JPanel implements ActionListener {
         for (int i=0 ;i<12;i++){
             for (int j=0 ;j<12;j++){
                 button[i][j].setEnabled(false);
+                button[i][j].setBackground(Color.lightGray);
                 if (numbers.containsKey(button[i][j])){
                     numFill(i,j);
                 }
