@@ -78,7 +78,7 @@ public class PaneL extends JPanel implements ActionListener {
             for (int j=0 ;j<12;j++){
                 if ( e.getSource() == button[i][j]){
                     button[i][j].setEnabled(false);
-                    button[i][j].setBackground(Color.BLACK);
+                    button[i][j].setBackground(Color.yellow);
                     if(mines.contains(button[i][j])){
                         minesLose();
                     }
@@ -88,6 +88,7 @@ public class PaneL extends JPanel implements ActionListener {
                     else {
 
                         button[i][j].setText("");
+                        button[i][j].setEnabled(false);
                         floodFill(i,j);
 
                     }
@@ -99,222 +100,33 @@ public class PaneL extends JPanel implements ActionListener {
     }
     public  void floodFill(int i, int j){
 
-        if (i-1 < 0 || i-1 > 11 || j -1< 0 || j-1 > 11){
-            return;
-        }
-        else if (button[i-1][j-1].getText()==""){
-           if(button[i-1][j-1].isEnabled()){
+        //top 3
+            emptyCheck(i-1,j-1);
+            emptyCheck(i-1,j);
+            emptyCheck(i-1,j+1);
+        //left and Right
+            emptyCheck(i,j-1);
+            emptyCheck(i,j+1);
+        //bottom 3
+            emptyCheck(i+1,j-1);
+            emptyCheck(i+1,j);
+            emptyCheck(i+1,j+1);
 
-              if(checkNumbers(i-1,j-1)==-1){
-                  return;
-              }
-              if(checkNumbers(i-1,j-1)== 1){
-                  int n=numbers.get(button[i-1][j-1]);
-                  String s=Integer.toString(n);
-                  button[i-1][j-1].setText("m");
-                  button[i-1][j-1].setEnabled(false);
-                  button[i-1][j-1].setBackground(Color.CYAN);
-              }
-               if(checkNumbers(i-1,j-1)== 0){
-                  button[i-1][j-1].setEnabled(false);
-                  button[i-1][j-1].setBackground(Color.CYAN);
-                  floodFill(i-1,j-1);
-              }
-          }
-          else {
-              return;
-          }
-      }
-        //+++++++++++++++++++++++++++++++++++++++++++++
-        if (i-1 < 0 || i-1 > 11 || j < 0 || j > 11){
-            return;
+    }
+    public void emptyCheck(int i, int j){
+        if (checkNumbers(i,j)==-1){return;}
+        if (checkNumbers(i,j)==1){
+            button[i][j].setEnabled(false);
+            int n=numbers.get(button[i][j]);
+            String s=Integer.toString(n);
+            button[i][j].setText(s);
+            button[i][j].setBackground(Color.LIGHT_GRAY);
         }
-        else if (button[i-1][j].getText()==""){
-            if(button[i-1][j].isEnabled()){
+        if (checkNumbers(i,j)==0){
+            button[i][j].setEnabled(false);
+            button[i][j].setBackground(Color.yellow);
 
-                if(checkNumbers(i-1,j)==-1){
-                    return;
-                }
-                if(checkNumbers(i-1,j)== 1){
-                    int n=numbers.get(button[i-1][j]);
-                    String s=Integer.toString(n);
-                    button[i-1][j].setText("n");
-                    button[i-1][j].setEnabled(false);
-                    button[i-1][j].setBackground(Color.CYAN);
-                }
-                if(checkNumbers(i-1,j)== 0){
-                    button[i-1][j].setEnabled(false);
-                    button[i-1][j].setBackground(Color.CYAN);
-                    floodFill(i-1,j);
-                }
-            }
-            else {
-                return;
-            }
         }
-        //+++++++++++++++++++++++++++++++++++++++++++++
-        if (i-1 < 0 || i-1 > 11 || j+1< 0 || j+1 > 11){
-            return;
-        }
-        else if (button[i-1][j+1].getText()==""){
-            if(button[i-1][j+1].isEnabled()){
-
-                if(checkNumbers(i-1,j+1)==-1){
-                    return;
-                }
-                if(checkNumbers(i-1,j+1)== 1){
-                    int n=numbers.get(button[i-1][j+1]);
-                    String s=Integer.toString(n);
-                    button[i-1][j+1].setText("o");
-                    button[i-1][j+1].setEnabled(false);
-                    button[i-1][j+1].setBackground(Color.CYAN);
-                }
-                if(checkNumbers(i-1,j+1)== 0){
-                    button[i-1][j+1].setEnabled(false);
-                    button[i-1][j+1].setBackground(Color.CYAN);
-                    floodFill(i-1,j+1);
-                }
-            }
-            else {
-                return;
-            }
-        }
-        //+++++++++++++++++++++++++++++++++++++++++++++
-        if (i < 0 || i > 11 || j -1< 0 || j-1 > 11){//left
-            return;
-        }
-        else if (button[i][j-1].getText()==""){
-            if(button[i][j-1].isEnabled()){
-
-                if(checkNumbers(i,j-1)==-1){
-                    return;
-                }
-                if(checkNumbers(i,j-1)== 1){
-                    int n=numbers.get(button[i][j-1]);
-                    String s=Integer.toString(n);
-                    button[i][j-1].setText(s);
-                    button[i][j-1].setEnabled(false);
-                    button[i][j-1].setBackground(Color.CYAN);
-                }
-                if(checkNumbers(i,j-1)== 0){
-                    button[i][j-1].setEnabled(false);
-                    button[i][j-1].setBackground(Color.CYAN);
-                    floodFill(i,j-1);
-                }
-            }
-            else {
-                return;
-            }
-        }
-        //+++++++++++++++++++++++++++++++++++++++++++++
-        if (i < 0 || i > 11 || j +1< 0 || j+1 > 11){
-            return;
-        }
-        else if (button[i][j+1].getText()==""){
-            if(button[i][j+1].isEnabled()){
-
-                if(checkNumbers(i,j+1)==-1){
-                    return;
-                }
-                if(checkNumbers(i,j+1)== 1){
-                    int n=numbers.get(button[i][j+1]);
-                    String s=Integer.toString(n);
-                    button[i][j+1].setText("p");
-                    button[i][j+1].setEnabled(false);
-                    button[i][j+1].setBackground(Color.CYAN);
-                }
-                if(checkNumbers(i,j+1)== 0){
-                    button[i][j+1].setEnabled(false);
-                    button[i][j+1].setBackground(Color.CYAN);
-                    floodFill(i,j+1);
-                }
-            }
-            else {
-                return;
-            }
-        }
-        //+++++++++++++++++++++++++++++++++++++++++++++
-        if (i+1 < 0 || i+1 > 11 || j +1< 0 || j+1 > 11){
-            return;
-        }
-        else if (button[i+1][j+1].getText()==""){
-            if(button[i+1][j+1].isEnabled()){
-
-                if(checkNumbers(i+1,j+1)==-1){
-                    return;
-                }
-                if(checkNumbers(i+1,j+1)== 1){
-                    int n=numbers.get(button[i+1][j+1]);
-                    String s=Integer.toString(n);
-                    button[i+1][j+1].setText("q");
-                    button[i+1][j+1].setEnabled(false);
-                    button[i+1][j+1].setBackground(Color.CYAN);
-                }
-                if(checkNumbers(i+1,j+1)== 0){
-                    button[i+1][j+1].setEnabled(false);
-                    button[i+1][j+1].setBackground(Color.CYAN);
-                    floodFill(i+1,j+1);
-                }
-            }
-            else {
-                return;
-            }
-        }
-        //+++++++++++++++++++++++++++++++++++++++++++++
-        if (i+1 < 0 || i+1 > 11 || j < 0 || j > 11){
-            return;
-        }
-        else if (button[i+1][j].getText()==""){
-            if(button[i+1][j].isEnabled()){
-
-                if(checkNumbers(i+1,j)==-1){
-                    return;
-                }
-                if(checkNumbers(i+1,j)== 1){
-                    int n=numbers.get(button[i+1][j]);
-                    String s=Integer.toString(n);
-                    button[i+1][j].setText("r");
-                    button[i+1][j].setEnabled(false);
-                    button[i+1][j].setBackground(Color.CYAN);
-                }
-                if(checkNumbers(i+1,j)== 0){
-                    button[i+1][j].setEnabled(false);
-                    button[i+1][j].setBackground(Color.CYAN);
-                    floodFill(i+1,j);
-                }
-            }
-            else {
-                return;
-            }
-        }
-        //+++++++++++++++++++++++++++++++++++++++
-        if (i+1 < 0 || i+1 > 11 || j -1< 0 || j-1 > 11){
-            return;
-        }
-        else if (button[i+1][j-1].getText()==""){
-            if(button[i+1][j-1].isEnabled()){
-
-                if(checkNumbers(i+1,j-1)==-1){
-                    return;
-                }
-                if(checkNumbers(i+1,j-1)== 1){
-                    int n=numbers.get(button[i+1][j-1]);
-                    String s=Integer.toString(n);
-                    button[i+1][j-1].setText("s");
-                    button[i+1][j-1].setEnabled(false);
-                    button[i+1][j-1].setBackground(Color.CYAN);
-                }
-                if(checkNumbers(i+1,j-1)== 0) {
-                    button[i+1][j-1].setEnabled(false);
-                    button[i+1][j-1].setBackground(Color.CYAN);
-                    floodFill(i+1,j-1);
-                }
-            }
-            else {
-                return;
-            }
-        }
-
     }
     public int checkNumbers(int i,int j){
         if (i < 0 || i > 11 || j < 0 || j > 11) {
@@ -327,7 +139,7 @@ public class PaneL extends JPanel implements ActionListener {
     }
 
     public void numFill(int i, int j){
-//        button[i][j].setEnabled(false);
+//      button[i][j].setEnabled(false);
         int n=numbers.get(button[i][j]);
         String s=Integer.toString(n);
         button[i][j].setText(s);
@@ -336,7 +148,7 @@ public class PaneL extends JPanel implements ActionListener {
 
     Random random = new Random();
     public void setMines(){
-        for (int i=0 ;i<4;i++){
+        for (int i=0 ;i<20;i++){
             int x= random.nextInt(12);
             int y=random.nextInt(12);
             mines.add(button[x][y]);
