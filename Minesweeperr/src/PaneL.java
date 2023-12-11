@@ -88,8 +88,8 @@ public class PaneL extends JPanel implements ActionListener {
                     else {
 
                         button[i][j].setText("");
-                        button[i][j].setEnabled(false);
-                        floodFill(i,j);
+                        button[i][j].setEnabled(true);
+                        emptyCheck(i,j);
 
                     }
 
@@ -100,36 +100,37 @@ public class PaneL extends JPanel implements ActionListener {
     }
     public  void floodFill(int i, int j){
 
-        //top 3
-            emptyCheck(i-1,j-1);
-            emptyCheck(i-1,j);
-            emptyCheck(i-1,j+1);
-        //left and Right
-            emptyCheck(i,j-1);
-            emptyCheck(i,j+1);
-        //bottom 3
-            emptyCheck(i+1,j-1);
-            emptyCheck(i+1,j);
-            emptyCheck(i+1,j+1);
+//        if (button[i][j].isEnabled())
 
     }
     public void emptyCheck(int i, int j){
-        if (checkNumbers(i,j)==-1){return;}
+        if (checkNumbers(i,j)==-1||!(button[i][j].isEnabled())){return;}
         if (checkNumbers(i,j)==1){
-            button[i][j].setEnabled(false);
-            int n=numbers.get(button[i][j]);
-            String s=Integer.toString(n);
-            button[i][j].setText(s);
-            button[i][j].setBackground(Color.LIGHT_GRAY);
+            //button[i][j].setEnabled(false);
+            numFill(i,j);
         }
         if (checkNumbers(i,j)==0){
             button[i][j].setEnabled(false);
             button[i][j].setBackground(Color.yellow);
+            //top 3
+            emptyCheck(i-1,j);
+           // emptyCheck(i-1,j+1);
+            //emptyCheck(i-1,j-1);
+            //left and Right
+            emptyCheck(i,j-1);
+            emptyCheck(i,j+1);
+            //bottom 3
+            //emptyCheck(i+1,j-1);
+            emptyCheck(i+1,j);
+            //emptyCheck(i+1,j+1);
+
+
+
 
         }
     }
     public int checkNumbers(int i,int j){
-        if (i < 0 || i > 11 || j < 0 || j > 11) {
+        if (i < 0 || i > 11 || j < 0 || j >11) {
             return -1;
         }
         if (numbers.containsKey(button[i][j])) {
@@ -139,7 +140,6 @@ public class PaneL extends JPanel implements ActionListener {
     }
 
     public void numFill(int i, int j){
-//      button[i][j].setEnabled(false);
         int n=numbers.get(button[i][j]);
         String s=Integer.toString(n);
         button[i][j].setText(s);
